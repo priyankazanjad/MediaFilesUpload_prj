@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+<title xmlns="http://www.w3.org/1999/html">All Orders</title>
+{% endblock %}
+
+{% block content %}
+<h1 style="text-align:center;">All Orders</h1>
+<table class="table table-dark">
+    <tr>
+        <th>ID</th>
+        <th>Company Name</th>
+        <th>Model Name</th>
+        <th>RAM</th>
+        <th>ROM</th>
+        <th>Processor</th>
+        <th>Price</th>
+        <th>Weight</th>
+        <th>Picture</th>
+        <th>Document</th>
+    </tr>
+    {% for ord in orders %}
+    <tr>
+        <td>{{ord.id}}</td>
+        <td>{{ord.company}}</td>
+        <td>{{ord.model_name}}</td>
+        <td>{{ord.ram}}</td>
+        <td>{{ord.rom}}</td>
+        <td>{{ord.processor}}</td>
+        <td>{{ord.price}}</td>
+        <td>{{ord.weight}}</td>
+        <td>{{ord.picture}}</td>
+        <td>{{ord.document}}</td>
+        <td><a href="{% url 'update' ord.id %}"><button class="btn btn-warning">Update</button></a></td>
+        <td><a href="{% url 'delete' ord.id %}"><button class="btn btn-danger">Delete</button></a></td>
+
+    </tr>
+    </tr>
+    {% endfor %}
+</table>
+<br>
+<a href="{% url 'add_ord' %}">
+    <button class="btn btn-success">Add Order</button>
+</a>
+</form>
+
+</div>
+{% endblock %}
+
+

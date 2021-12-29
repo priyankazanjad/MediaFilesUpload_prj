@@ -1,0 +1,188 @@
+DB_URL='mysql://root:root@localhost:3306/aq_db'
+ENGINE=create_engine(DB_URL)
+print(ENGINE,type(ENGINE))
+
+class student:
+    def __init__(self,r,n,m):
+        self.rn=r
+        self.name=n
+        self.marks=m
+    def __str__(self):
+        return f'{self.rn},{self.name},{self.marks}'
+md=MetaData()
+print(md,type(md))
+
+st=Table('stud',md,
+         Column('rn',Integer,primary_key=True),
+         Column('name',String(20)),
+         Column('marks',Float)
+         )
+mapper(student,st)
+print('mapped')
+
+md.create_all(ENGINE)
+print('table created')
+Session=sessionmaker(bind=ENGINE)
+sess=Session()
+print(sess,type(sess))
+
+s1=student(1,'pooja',10)
+s2=student(2,'pranita',20)
+s3=student(3,'priyanka',30)
+
+sess.add_all([s1,s2,s3])
+print('recorded inserted')
+
+results=sess.query(student)
+#results=sess.query(student).filter(student.rn==2)
+for row in results:
+    print(row)
+
+sess.query(student).filter(student.rn==1).delete()
+print('delete')
+sess.commit()
+sess.close()
+'''
+'''
+from sqlalchemy import create_engine,MetaData,Table,Column,Integer,String,Float
+from sqlalchemy.orm import mapper,sessionmaker
+DB_URL='mysql://root:root@localhost:3306/aq_db'
+ENGINE=create_engine(DB_URL)
+print(ENGINE,type(ENGINE))
+
+class stud:
+    def __init__(self,r,n,m):
+        self.rn=r
+        self.name=n
+        self.marks=m
+    def __str__(self):
+        return f'{self.rn},{self.name},{self.marks}'
+md=MetaData()
+print(md,type(md))
+
+st=Table('stu',md,
+         Column('rn',Integer,primary_key=True),
+         Column('name',String(20)),
+         Column('marks',Float)
+         )
+mapper(stud,st)
+print('mapped')
+
+md.create_all(ENGINE)
+print('table created')
+Session=sessionmaker(bind=ENGINE)
+sess=Session()
+print(sess,type(sess))
+
+ch=int(input('\nenter choice:\n1.insert\n2.update\n3.retrive\n4.delete'))
+if ch==1:
+    
+    r=int(input('enter roll no:'))
+    n=input('enter name:')
+    m=float(input('enter marks:'))
+    s1=stud(r,n,m)
+    sess.add(s1)
+elif ch==2:
+    upd=int(input('enter rollno:'))
+    #column=input('enter column to update:')
+    numb=float(input('enter new marks:'))
+    
+    sess.query(stud).filter(stud.rn==upd).update({stud.marks:numb})
+    print('update done')
+elif ch==3:
+    a=sess.query(stud)
+    for rows in a:
+        print(rows)
+elif ch==4:
+    dlt=int(input('enter rollno:'))
+    sess.query(stud).filter(stud.rn==dlt).delete()
+sess.commit()
+sess.close()
+    
+'''    
+    
+'''
+from sqlalchemy import create_engine,MetaData,Table,Column,Integer,String,Float
+from sqlalchemy.orm import mapper,sessionmaker
+DB_URL='mysql://root:root@localhost:3306/aq_db'
+ENGINE=create_engine(DB_URL)
+print(ENGINE,type(ENGINE))
+
+class student1:
+    def __init__(self,r,n,m):
+        self.rn=r
+        self.name=n
+        self.marks=m
+    def __str__(self):
+        return f'{self.rn},{self.name},{self.marks}'
+md=MetaData()
+print(md,type(md))
+
+st=Table('stu1',md,
+         Column('rn',Integer,primary_key=True,unique=True,nullable=False),
+         Column('name',String(30)),
+         Column('marks',Float)
+         )
+mapper(student1,st)
+md.create_all(ENGINE)
+Session=sessionmaker(bind=ENGINE)
+sess=Session()
+sess.commit()
+sess.close()
+'''
+from sqlalchemy import create_engine,MetaData,Table,Column,Integer,String,Float,ForeignKey
+from sqlalchemy.orm import mapper,sessionmaker
+DB_URL='mysql://root:root@localhost:3306/aq_db'
+ENGINE=create_engine(DB_URL)
+print(ENGINE,type(ENGINE))
+
+class customer:
+    def __init__(self,a,b,c):
+        self.cid=a
+        self.name=b
+        self.city=c
+        
+    def __str__(self):
+        return f'{self.cid},{self.name},{self.city}'
+md=MetaData()
+st=Table('cust',md,
+         Column('cid',Integer,primary_key=True),
+         Column('name',String(20)),
+         Column('city',String(20))
+         )
+class product1:
+    def __init__(self,a,b):
+        self.pid=a
+        self.name=b
+        
+    def __str__(self):
+        return f'{self.pid},{self.name}'
+
+st1=Table('product',md,
+          Column('pid',Integer,primary_key=True),
+          Column('name',String(20)),
+          Column('cid',Integer,ForeignKey('cust.cid'))
+          )
+mapper(customer,st)
+mapper(product1,st1)
+print('mapped')
+
+md.create_all(ENGINE)
+print('table created')
+Session=sessionmaker(bind=ENGINE)
+sess=Session()
+print(sess,type(sess))
+
+
+
+
+
+
+
+
+
+
+
+
+
+

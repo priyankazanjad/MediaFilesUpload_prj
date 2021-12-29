@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+<title>Add Orders</title>
+{% endblock %}
+
+{% block content %}
+<h1 style="text-align:center;">Add Order</h1>
+<div class="container" style="width:50%;">
+    <form method="post" class="jumbotron" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form|crispy}}
+        <input type="submit" value="Add Order" class="btn btn_primary">
+
+    </form>
+
+</div>
+{% endblock %}
