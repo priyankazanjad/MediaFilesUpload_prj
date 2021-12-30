@@ -6,4 +6,5 @@ urlpatterns = [
     path('showord/',views.ShowOrdersView.as_view(),name='show_ord'),
     path('delete/<int:i>/',views.DeleteOrdersView.as_view(),name='delete'),
     path('update/<int:i>/',views.UpdateOrdersView.as_view(),name='update'),
+    path('details/<int:i>/',views.OrdersDetails.as_view(),name='details'),
 ]

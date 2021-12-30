@@ -53,3 +53,10 @@ class DeleteOrdersView(LoginRequiredMixin,View):
         orders = Orders.objects.get(id=i)
         orders.delete()
         return redirect(request,'show_ord')
+
+class OrdersDetails(View):
+    def get(self,request,i):
+        orders = Orders.objects.get(id=i)
+        template_name = 'OrdersApp/ordersdetail.html'
+        context = {'orders':orders}
+        return render(request,template_name,context)

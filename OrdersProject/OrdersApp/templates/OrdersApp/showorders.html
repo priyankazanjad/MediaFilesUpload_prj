@@ -17,8 +17,9 @@
         <th>Processor</th>
         <th>Price</th>
         <th>Weight</th>
-        <th>Picture</th>
-        <th>Document</th>
+        <th>Details</th>
+        <th>Update</th>
+        <th>Delete</th>
     </tr>
     {% for ord in orders %}
     <tr>
@@ -30,8 +31,7 @@
         <td>{{ord.processor}}</td>
         <td>{{ord.price}}</td>
         <td>{{ord.weight}}</td>
-        <td>{{ord.picture}}</td>
-        <td>{{ord.document}}</td>
+        <td><a href="{% url 'details' ord.id %}"><button class="btn btn-warning">Details</button></a></td>
         <td><a href="{% url 'update' ord.id %}"><button class="btn btn-warning">Update</button></a></td>
         <td><a href="{% url 'delete' ord.id %}"><button class="btn btn-danger">Delete</button></a></td>
 
